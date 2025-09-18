@@ -50,4 +50,14 @@ const nextConfig = {
   },
 }
 
-module.exports = nextConfig
+module.exports = {
+  images: {
+    domains: ['cdn.kiss-magazine.com'],
+    formats: ['image/webp', 'image/avif'],
+    minimumCacheTTL: 31536000, // 1 year
+  },
+  experimental: {
+    optimizeCss: true,
+    optimizeServerReact: true,
+  },
+};

@@ -1,26 +1,122 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --korean-gradient: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%);
+  --kpop-gradient: linear-gradient(135deg, #ff69b4 0%, #9b59b6 100%);
+  --kdrama-gradient: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .korean-gradient {
+    background: var(--korean-gradient);
+  }
+  
+  .kpop-gradient {
+    background: var(--kpop-gradient);
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-r from-korean-500 to-kpop-purple bg-clip-text text-transparent;
+  }
+  
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+  }
+  
+  .btn-primary {
+    @apply bg-korean-500 hover:bg-korean-600 text-white font-medium px-6 py-3 rounded-lg transition-colors duration-200;
+  }
+  
+  .btn-secondary {
+    @apply bg-white hover:bg-gray-50 text-korean-500 border border-korean-500 font-medium px-6 py-3 rounded-lg transition-colors duration-200;
+  }
+  
+  .category-badge {
+    @apply inline-block px-3 py-1 text-xs font-medium rounded-full uppercase tracking-wide;
+  }
+  
+  .category-kpop {
+    @apply bg-kpop-pink text-white;
+  }
+  
+  .category-kdrama {
+    @apply bg-kpop-blue text-white;
+  }
+  
+  .category-kfashion {
+    @apply bg-kpop-purple text-white;
+  }
+  
+  .category-kbeauty {
+    @apply bg-kpop-mint text-white;
+  }
+  
+  .category-kplaces {
+    @apply bg-korean-500 text-white;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-korean-300 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-korean-400;
+}
+
+/* Korean text styling */
+.korean-text {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 400;
+}
+
+/* Loading animations */
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
 }

@@ -1,34 +1,67 @@
-export default function HomePage() {
+import { MagazineHero } from '@/components/homepage/MagazineHero';
+import { ThemeSections } from '@/components/homepage/ThemeSections';
+import { InfluencerSpotlight } from '@/components/homepage/InfluencerSpotlight';
+import { YouTubeFeed } from '@/components/homepage/YouTubeFeed';
+import { ProductCarousel } from '@/components/products/ProductCarousel';
+import { ShopByLook } from '@/components/homepage/ShopByLook';
+import { SeoulStreetStyle } from '@/components/homepage/SeoulStreetStyle';
+import { BestSellers } from '@/components/products/BestSellers';
+import { KBeautyMustHaves } from '@/components/products/KBeautyMustHaves';
+import { InstagramFeed } from '@/components/homepage/InstagramFeed';
+import { CommunityHighlights } from '@/components/community/CommunityHighlights';
+import { LoyaltyBanner } from '@/components/homepage/LoyaltyBanner';
+import { getLatestArticles, getTrendingProducts, getCommunityPosts } from '@/lib/api';
+
+export default async function HomePage() {
+  // Fetch initial data
+  const [articles, trendingProducts, communityPosts] = await Promise.all([
+    getLatestArticles(),
+    getTrendingProducts(),
+    getCommunityPosts({ limit: 6 })
+  ]);
+
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">
-          Welcome to Kiss Magazine
-        </h1>
-        <p className="text-xl text-gray-600 mb-8">
-          Your gateway to authentic Korean culture, fashion, and beauty
-        </p>
-        <div className="bg-gradient-to-r from-pink-500 to-purple-500 text-white p-8 rounded-lg">
-          <h2 className="text-2xl font-bold mb-4">🇰🇷 Korean Culture Hub</h2>
-          <p className="mb-4">
-            Discover K-fashion, K-beauty, and connect with Korean culture enthusiasts worldwide
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
-            <div className="bg-white/10 p-4 rounded-lg">
-              <h3 className="font-bold mb-2">🛍️ Shop Korean Brands</h3>
-              <p className="text-sm">Authentic products from Seoul</p>
-            </div>
-            <div className="bg-white/10 p-4 rounded-lg">
-              <h3 className="font-bold mb-2">👥 Join Community</h3>
-              <p className="text-sm">Share your Korean culture journey</p>
-            </div>
-            <div className="bg-white/10 p-4 rounded-lg">
-              <h3 className="font-bold mb-2">🏆 Earn Rewards</h3>
-              <p className="text-sm">Win Seoul trip in monthly raffle</p>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="min-h-screen">
+      {/* Magazine Hero Section */}
+      <MagazineHero articles={articles.slice(0, 4)} />
+      
+      {/* Theme Sections */}
+      <ThemeSections articles={articles} />
+      
+      {/* Influencer Spotlight */}
+      <InfluencerSpotlight />
+      
+      {/* YouTube Feed */}
+      <YouTubeFeed />
+      
+      {/* New Arrivals - Korea Trending */}
+      <ProductCarousel 
+        title="New Arrivals — Korea Trending"
+        subtitle="Fresh from Seoul streets"
+        products={trendingProducts}
+        theme="trending"
+      />
+      
+      {/* Shop by Look */}
+      <ShopByLook />
+      
+      {/* Seoul Street Style */}
+      <SeoulStreetStyle />
+      
+      {/* Best Sellers */}
+      <BestSellers />
+      
+      {/* K-Beauty Must-Haves */}
+      <KBeautyMustHaves />
+      
+      {/* Instagram Feed */}
+      <InstagramFeed />
+      
+      {/* Community Highlights */}
+      <CommunityHighlights posts={communityPosts} />
+      
+      {/* Loyalty Banner */}
+      <LoyaltyBanner />
     </div>
-  )
+  );
 }
