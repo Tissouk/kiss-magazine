@@ -12,7 +12,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Welcome to Korean Culture Hub
+              Welcome to Korean Culture Hub 🇰🇷
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-pink-100">
               Discover authentic K-fashion, K-beauty, and connect with Korean culture enthusiasts worldwide
